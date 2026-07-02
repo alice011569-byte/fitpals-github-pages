@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FitPals Prototype</title>
+    <meta name="theme-color" content="#62b66a" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="FitPals" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="./assets/leafling.svg" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="side-rail" aria-label="앱 내비게이션">
+        <div class="brand-mark" aria-label="FitPals">FP</div>
+        <button class="rail-button active" data-view="home" aria-label="홈">
+          <span>⌂</span>
+        </button>
+        <button class="rail-button" data-view="journal" aria-label="기록">
+          <span>◷</span>
+        </button>
+        <button class="rail-button" data-view="calendar" aria-label="달력">
+          <span>▦</span>
+        </button>
+        <button class="rail-button" data-view="dex" aria-label="도감">
+          <span>◇</span>
+        </button>
+        <button class="rail-button" data-view="rewards" aria-label="보상">
+          <span>✦</span>
+        </button>
+        <button class="rail-button" data-view="room" aria-label="캐릭터 방">
+          <span>▣</span>
+        </button>
+        <button class="rail-button" data-view="friends" aria-label="친구">
+          <span>♢</span>
+        </button>
+      </aside>
+
+      <main class="phone-frame">
+        <section class="top-bar">
+          <div>
+            <p class="eyebrow">Apple Watch 연결됨</p>
+            <h1>FitPals</h1>
+          </div>
+          <div class="watch-chip">
+            <span class="pulse"></span>
+            84 bpm
+          </div>
+        </section>
+
+        <section class="view view-home active" id="view-home">
+          <div class="world-hero">
+            <img class="hero-pet" id="hero-pet" src="./assets/leafling.svg" alt="풀잎 캐릭터 Leafling" />
+            <div class="orbit orbit-one"></div>
+            <div class="orbit orbit-two"></div>
+            <div class="hero-copy">
+              <p id="hero-region">버섯 숲</p>
+              <h2 id="hero-title">12분 더 걸으면 숲 알이 깨어나요</h2>
+            </div>
+          </div>
+
+          <div class="stats-strip" aria-label="오늘 활동 요약">
+            <article>
+              <strong id="today-steps">6,240</strong>
+              <span>걸음</span>
+            </article>
+            <article>
+              <strong id="today-active-minutes">38분</strong>
+              <span>활동</span>
+            </article>
+            <article>
+              <strong id="today-streak">4일</strong>
+              <span>연속</span>
+            </article>
+          </div>
+
+          <section class="sync-panel">
+            <div>
+              <p class="eyebrow">iPhone Fitness · Apple Watch</p>
+              <h3>자동 업데이트 켜짐</h3>
+              <span id="sync-status">마지막 동기화: 방금 전</span>
+            </div>
+            <button id="sync-workouts-button" type="button">운동기록 불러오기</button>
+          </section>
+
+          <section class="today-panel">
+            <div class="section-heading">
+              <h3>오늘 운동</h3>
+              <span id="today-reward-summary">받을 보상 0개</span>
+            </div>
+            <div class="today-workout-list" id="today-workout-list"></div>
+          </section>
+
+          <section class="goal-panel">
+            <div class="section-heading">
+              <h3>운동 목표</h3>
+              <span id="goal-summary">오늘 걷기 3km · 내일 수영 1000m</span>
+            </div>
+            <div class="goal-stack">
+              <article class="goal-card" data-goal-card="today">
+                <div>
+                  <strong>오늘 목표</strong>
+                  <span id="today-goal-readable">실외 걷기 · 3km</span>
+                </div>
+                <label>
+                  종목
+                  <select id="today-goal-activity"></select>
+                </label>
+                <label>
+                  목표
+                  <div class="goal-target-row">
+                    <input id="today-goal-input" type="number" min="1" max="5000" step="1" value="3" />
+                    <span id="today-goal-unit">km</span>
+                  </div>
+                </label>
+              </article>
+              <article class="goal-card" data-goal-card="tomorrow">
+                <div>
+                  <strong>내일 목표</strong>
+                  <span id="tomorrow-goal-readable">수영장 수영 · 1000m</span>
+                </div>
+                <label>
+                  종목
+                  <select id="tomorrow-goal-activity"></select>
+                </label>
+                <label>
+                  목표
+                  <div class="goal-target-row">
+                    <input id="tomorrow-goal-input" type="number" min="1" max="5000" step="1" value="1000" />
+                    <span id="tomorrow-goal-unit">m</span>
+                  </div>
+                </label>
+              </article>
+            </div>
+            <button id="save-goals-button" type="button">목표 저장</button>
+          </section>
+
+          <section class="activity-panel">
+            <div class="section-heading">
+              <h3>Apple Watch 운동 보상</h3>
+              <span id="reward-hint">운동 유형을 선택해 보상을 확인하세요</span>
+            </div>
+            <div class="activity-grid" id="activity-grid"></div>
+          </section>
+        </section>
+
+        <section class="view" id="view-journal">
+          <div class="section-heading page-heading">
+            <h3>활동 기록</h3>
+            <span>워치 데이터 기반 보상 로그</span>
+          </div>
+          <div class="timeline" id="timeline"></div>
+        </section>
+
+        <section class="view" id="view-calendar">
+          <div class="section-heading page-heading">
+            <h3>월간 보상 달력</h3>
+            <span id="calendar-summary">7월 보상 0개</span>
+          </div>
+
+          <section class="calendar-panel" aria-label="월간 운동 보상 달력">
+            <div class="calendar-header">
+              <button id="prev-month-button" type="button" aria-label="이전 달">‹</button>
+              <strong id="calendar-title">2026년 7월</strong>
+              <button id="next-month-button" type="button" aria-label="다음 달">›</button>
+            </div>
+            <div class="calendar-weekdays" aria-hidden="true">
+              <span>일</span>
+              <span>월</span>
+              <span>화</span>
+              <span>수</span>
+              <span>목</span>
+              <span>금</span>
+              <span>토</span>
+            </div>
+            <div class="calendar-grid" id="calendar-grid"></div>
+          </section>
+
+          <section class="calendar-detail-panel">
+            <div class="section-heading">
+              <h3 id="calendar-selected-title">오늘 받은 보상</h3>
+              <span id="calendar-selected-count">0개</span>
+            </div>
+            <div class="calendar-reward-list" id="calendar-reward-list"></div>
+          </section>
+        </section>
+
+        <section class="view" id="view-dex">
+          <div class="section-heading page-heading">
+            <h3>캐릭터 도감</h3>
+            <span id="dex-count">0 / 0 보상</span>
+          </div>
+          <div class="dex-grid" id="dex-grid"></div>
+        </section>
+
+        <section class="view" id="view-rewards">
+          <div class="section-heading page-heading">
+            <h3>보상 상자</h3>
+            <span>활동 종류마다 다른 상자가 열려요</span>
+          </div>
+          <div class="reward-card">
+            <img id="reward-pet" src="./assets/splashy.svg" alt="물방울 캐릭터 Splashy" />
+            <div>
+              <p class="eyebrow">방금 획득</p>
+              <h2 id="reward-title">물결 조개 상자</h2>
+              <p id="reward-copy">수영을 완료하면 물속 친구와 진주 아이템을 만날 수 있어요.</p>
+            </div>
+          </div>
+          <div class="inventory" id="inventory"></div>
+        </section>
+
+        <section class="view" id="view-room">
+          <div class="section-heading page-heading">
+            <h3>캐릭터 방</h3>
+            <span id="room-summary">대표 캐릭터 성장 중</span>
+          </div>
+
+          <section class="room-stage-panel">
+            <div class="room-stage" id="room-stage">
+              <div class="room-wall-deco"></div>
+              <div class="room-shelf" id="room-shelf"></div>
+              <div class="room-character">
+                <div class="pet-dressup" id="pet-dressup">
+                  <span class="pet-hat" id="pet-hat"></span>
+                  <span class="pet-face" id="pet-face"></span>
+                  <img id="room-pet-image" src="./assets/leafling.svg" alt="대표 캐릭터" />
+                  <span class="pet-outfit" id="pet-outfit"></span>
+                  <span class="pet-accessory" id="pet-accessory"></span>
+                </div>
+                <strong id="room-pet-name">Leafling</strong>
+                <span id="room-pet-style">기본 착장</span>
+              </div>
+              <div class="room-floor" id="room-floor"></div>
+            </div>
+          </section>
+
+          <section class="growth-panel">
+            <div class="section-heading">
+              <h3>성장시키기</h3>
+              <span id="growth-status">Lv. 1 · 0 / 100 XP</span>
+            </div>
+            <div class="growth-meter" aria-label="캐릭터 성장 경험치">
+              <i id="growth-bar"></i>
+            </div>
+            <div class="pet-selector" id="pet-selector"></div>
+            <div class="feed-grid" id="feed-grid"></div>
+          </section>
+
+          <section class="decorate-panel">
+            <div class="section-heading">
+              <h3>옷장</h3>
+              <span>종목별 의상 보상</span>
+            </div>
+            <div class="wardrobe-tabs" id="wardrobe-tabs"></div>
+            <div class="closet-grid" id="closet-grid"></div>
+            <div class="section-heading decor-heading">
+              <h3>방 꾸미기</h3>
+              <span>아이템 배치</span>
+            </div>
+            <div class="decor-grid" id="decor-grid"></div>
+          </section>
+        </section>
+
+        <section class="view" id="view-friends">
+          <div class="section-heading page-heading">
+            <h3>친구 랭킹</h3>
+            <span id="friend-count">0명 연결됨</span>
+          </div>
+
+          <section class="friend-hero">
+            <div>
+              <p class="eyebrow">이번 주 리그</p>
+              <h2>친구와 같이 링을 닫아요</h2>
+              <p>FitPals ID로 친구를 찾거나, 카카오톡으로 초대 요청을 보낼 수 있어요.</p>
+            </div>
+            <div class="league-badge">
+              <strong>#2</strong>
+              <span>내 순위</span>
+            </div>
+          </section>
+
+          <section class="friend-panel">
+            <div class="section-heading">
+              <h3>친구 추가</h3>
+              <span>아이디 검색 · 카카오톡 요청</span>
+            </div>
+            <div class="friend-form">
+              <label for="friend-input" id="friend-input-label">FitPals ID</label>
+              <div class="friend-input-row">
+                <input id="friend-input" type="text" placeholder="예: fitpal_minji" />
+                <button id="add-friend-button" type="button">검색</button>
+              </div>
+            </div>
+            <button class="kakao-button" id="kakao-request-button" type="button">
+              카카오톡으로 친구요청 보내기
+            </button>
+            <p class="share-preview" id="share-preview">FitPals에서 같이 걷고 보상 모으자!</p>
+          </section>
+
+          <section class="location-panel">
+            <div>
+              <p class="eyebrow">위치 공유</p>
+              <h3>친구와 같이 운동 감지</h3>
+              <span id="location-status">위치 권한 대기 중 · 친구에게 내 위치는 공유되지 않음</span>
+            </div>
+            <button id="location-permission-button" type="button">위치 권한 허용</button>
+          </section>
+
+          <section class="watch-party-panel">
+            <div class="section-heading">
+              <h3>워치 동행 화면</h3>
+              <span id="party-status">친구 2명 근처</span>
+            </div>
+            <div class="watch-preview">
+              <div class="watch-screen">
+                <div class="watch-topline">
+                  <span>같이 걷는 중</span>
+                  <strong id="party-distance">240m</strong>
+                </div>
+                <div class="watch-pets" id="watch-pets"></div>
+                <div class="watch-progress">
+                  <span id="party-progress-label">합동 목표 68%</span>
+                  <div>
+                    <i id="party-progress-bar"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="party-list" id="party-list"></div>
+            <button class="joint-reward-button" id="joint-reward-button" type="button">합동 보상 받기</button>
+          </section>
+
+          <section class="ranking-panel">
+            <div class="section-heading">
+              <h3>주간 활동 랭킹</h3>
+              <span>걸음 · 활동 · 수집 점수</span>
+            </div>
+            <div class="ranking-list" id="ranking-list"></div>
+          </section>
+
+          <section class="pending-panel">
+            <div class="section-heading">
+              <h3>친구 요청</h3>
+              <span>대기 중</span>
+            </div>
+            <div class="pending-list" id="pending-list"></div>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="./script.js"></script>
+  </body>
+</html>

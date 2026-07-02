@@ -1,0 +1,18 @@
+{
+  "name": "FitPals",
+  "short_name": "FitPals",
+  "description": "운동 기록으로 귀여운 캐릭터와 꾸미기 아이템을 모으는 피트니스 보상 앱",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#fffdf7",
+  "theme_color": "#62b66a",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "./assets/leafling.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
