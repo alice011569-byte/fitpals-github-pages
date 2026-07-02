@@ -939,7 +939,7 @@ h1 {
 
 .pet-outfit {
   left: 50%;
-  bottom: 26px;
+  bottom: 24px;
   width: 62px;
   height: 34px;
   color: #fff;
@@ -956,6 +956,21 @@ h1 {
   background: rgba(255, 255, 255, 0.86);
 }
 
+.pet-hat::before,
+.pet-hat::after,
+.pet-face::before,
+.pet-face::after,
+.pet-outfit::before,
+.pet-outfit::after,
+.pet-accessory::before,
+.pet-accessory::after,
+.closet-preview::before,
+.closet-preview::after {
+  content: "";
+  position: absolute;
+  display: block;
+}
+
 .pet-outfit[data-style="green-hoodie"],
 .pet-outfit[data-style="meditation-robe"],
 .pet-outfit[data-style="trekking-vest"],
@@ -966,6 +981,39 @@ h1 {
 .pet-outfit[data-style="swimsuit"],
 .pet-outfit[data-style="pearl-hoodie"] {
   background: #56a9d9;
+}
+
+.pet-outfit[data-style="swimsuit"] {
+  bottom: 20px;
+  width: 72px;
+  height: 48px;
+  border: 2px solid rgba(255, 255, 255, 0.82);
+  border-radius: 24px 24px 18px 18px / 24px 24px 14px 14px;
+  background:
+    radial-gradient(circle at 50% 0, transparent 0 13px, rgba(255, 255, 255, 0.78) 14px 16px, transparent 17px),
+    linear-gradient(90deg, transparent 0 12px, rgba(255, 255, 255, 0.72) 13px 15px, transparent 16px 56px, rgba(255, 255, 255, 0.72) 57px 59px, transparent 60px),
+    linear-gradient(135deg, #2f9bd5 0%, #56c6e2 48%, #1f78bd 100%);
+  box-shadow: inset 0 -9px 14px rgba(28, 82, 126, 0.22), 0 8px 12px rgba(22, 88, 136, 0.16);
+}
+
+.pet-outfit[data-style="swimsuit"]::before,
+.pet-outfit[data-style="swimsuit"]::after {
+  top: 6px;
+  width: 18px;
+  height: 24px;
+  border-top: 4px solid rgba(255, 255, 255, 0.72);
+}
+
+.pet-outfit[data-style="swimsuit"]::before {
+  left: 6px;
+  border-left: 4px solid rgba(255, 255, 255, 0.72);
+  border-radius: 16px 0 0 0;
+}
+
+.pet-outfit[data-style="swimsuit"]::after {
+  right: 6px;
+  border-right: 4px solid rgba(255, 255, 255, 0.72);
+  border-radius: 0 16px 0 0;
 }
 
 .pet-outfit[data-style="running-suit"] {
@@ -984,8 +1032,25 @@ h1 {
 }
 
 .pet-hat[data-style="swim-cap"] {
-  color: #fff;
-  background: #56a9d9;
+  top: 10px;
+  width: 82px;
+  height: 46px;
+  color: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.82);
+  border-radius: 42px 42px 28px 28px / 36px 36px 20px 20px;
+  background:
+    radial-gradient(circle at 66% 28%, rgba(255, 255, 255, 0.55) 0 6px, transparent 7px),
+    linear-gradient(135deg, #38a8da 0%, #76d4ed 52%, #1d82c0 100%);
+  box-shadow: inset 0 -10px 12px rgba(28, 96, 139, 0.2), 0 8px 12px rgba(19, 88, 132, 0.14);
+}
+
+.pet-hat[data-style="swim-cap"]::after {
+  left: 10px;
+  right: 10px;
+  bottom: 6px;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
 }
 
 .pet-hat[data-style="hair-band"],
@@ -1000,7 +1065,80 @@ h1 {
 }
 
 .pet-face[data-style="swim-goggles"] {
-  background: #56a9d9;
+  top: 62px;
+  width: 76px;
+  height: 28px;
+  color: transparent;
+  background: transparent;
+}
+
+.pet-face[data-style="swim-goggles"]::before {
+  inset: 5px 1px 5px 1px;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 25% 50%, rgba(190, 237, 255, 0.92) 0 9px, #246c96 10px 13px, transparent 14px),
+    radial-gradient(circle at 75% 50%, rgba(190, 237, 255, 0.92) 0 9px, #246c96 10px 13px, transparent 14px),
+    linear-gradient(90deg, #246c96 0 18px, transparent 19px 57px, #246c96 58px);
+  filter: drop-shadow(0 3px 3px rgba(25, 71, 104, 0.2));
+}
+
+.pet-face[data-style="swim-goggles"]::after {
+  left: 30px;
+  top: 11px;
+  width: 16px;
+  height: 6px;
+  border-top: 3px solid #246c96;
+  border-radius: 999px;
+}
+
+.pet-face[data-style="sunglasses"] {
+  width: 72px;
+  height: 26px;
+  color: transparent;
+  background: transparent;
+}
+
+.pet-face[data-style="sunglasses"]::before {
+  inset: 4px 0;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 25% 50%, #1f2933 0 10px, #f0b34b 11px 13px, transparent 14px),
+    radial-gradient(circle at 75% 50%, #1f2933 0 10px, #f0b34b 11px 13px, transparent 14px),
+    linear-gradient(90deg, #f0b34b 0 18px, transparent 19px 53px, #f0b34b 54px);
+  filter: drop-shadow(0 3px 3px rgba(36, 50, 47, 0.2));
+}
+
+.pet-face[data-style="sunglasses"]::after {
+  left: 29px;
+  top: 10px;
+  width: 14px;
+  height: 5px;
+  border-top: 3px solid #f0b34b;
+  border-radius: 999px;
+}
+
+.pet-outfit[data-style="running-suit"] {
+  width: 70px;
+  height: 44px;
+  border-radius: 22px 22px 16px 16px;
+  background:
+    linear-gradient(90deg, transparent 0 10px, rgba(255, 255, 255, 0.72) 11px 14px, transparent 15px 55px, rgba(255, 255, 255, 0.72) 56px 59px, transparent 60px),
+    linear-gradient(135deg, #f05b78 0%, #ff8a66 48%, #ba3d5f 100%);
+  box-shadow: inset 0 -9px 12px rgba(121, 39, 68, 0.18), 0 8px 12px rgba(169, 57, 86, 0.14);
+}
+
+.pet-accessory[data-style="water-bottle"] {
+  right: 6px;
+  bottom: 28px;
+  width: 26px;
+  height: 54px;
+  color: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.82);
+  border-radius: 10px 10px 14px 14px;
+  background:
+    linear-gradient(#314c66 0 7px, transparent 8px),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.86) 0 34%, rgba(88, 190, 218, 0.92) 35% 100%);
+  box-shadow: inset 6px 0 8px rgba(255, 255, 255, 0.22), 0 8px 10px rgba(36, 50, 47, 0.12);
 }
 
 .pet-accessory[data-style="water-bottle"],
@@ -1190,6 +1328,7 @@ h1 {
 
 .closet-card span,
 .decor-card span {
+  position: relative;
   display: grid;
   place-items: center;
   width: 36px;
@@ -1200,6 +1339,80 @@ h1 {
   background: #263a34;
   font-size: 18px;
   font-weight: 900;
+}
+
+.closet-card .closet-preview {
+  overflow: hidden;
+  color: transparent;
+  background: linear-gradient(145deg, #f7fbff, #dcecf2);
+  box-shadow: inset 0 0 0 1px rgba(36, 50, 47, 0.08);
+}
+
+.closet-preview[data-style="swim-goggles"]::before {
+  inset: 9px 4px;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 25% 50%, rgba(192, 240, 255, 0.95) 0 5px, #246c96 6px 8px, transparent 9px),
+    radial-gradient(circle at 75% 50%, rgba(192, 240, 255, 0.95) 0 5px, #246c96 6px 8px, transparent 9px),
+    linear-gradient(90deg, #246c96 0 10px, transparent 11px 25px, #246c96 26px);
+}
+
+.closet-preview[data-style="swimsuit"]::before,
+.closet-preview[data-style="running-suit"]::before {
+  left: 8px;
+  top: 7px;
+  width: 20px;
+  height: 24px;
+  border: 2px solid rgba(255, 255, 255, 0.82);
+  border-radius: 12px 12px 7px 7px;
+}
+
+.closet-preview[data-style="swimsuit"]::before {
+  background: linear-gradient(135deg, #2f9bd5, #6ed6ed);
+}
+
+.closet-preview[data-style="running-suit"]::before {
+  background: linear-gradient(135deg, #f05b78, #ff8a66);
+}
+
+.closet-preview[data-style="swim-cap"]::before {
+  left: 6px;
+  top: 8px;
+  width: 24px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.82);
+  border-radius: 18px 18px 10px 10px;
+  background: linear-gradient(135deg, #38a8da, #76d4ed);
+}
+
+.closet-preview[data-style="swim-cap"]::after {
+  left: 11px;
+  top: 22px;
+  width: 14px;
+  height: 3px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.82);
+}
+
+.closet-preview[data-style="sunglasses"]::before {
+  inset: 10px 4px;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 25% 50%, #1f2933 0 5px, #f0b34b 6px 8px, transparent 9px),
+    radial-gradient(circle at 75% 50%, #1f2933 0 5px, #f0b34b 6px 8px, transparent 9px),
+    linear-gradient(90deg, #f0b34b 0 10px, transparent 11px 25px, #f0b34b 26px);
+}
+
+.closet-preview[data-style="water-bottle"]::before {
+  left: 12px;
+  top: 6px;
+  width: 12px;
+  height: 26px;
+  border: 2px solid rgba(255, 255, 255, 0.86);
+  border-radius: 5px 5px 8px 8px;
+  background:
+    linear-gradient(#314c66 0 5px, transparent 6px),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92) 0 38%, rgba(88, 190, 218, 0.95) 39% 100%);
 }
 
 .closet-card.equipped,

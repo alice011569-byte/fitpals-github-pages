@@ -223,12 +223,12 @@ const wardrobeCategories = [
 ];
 
 const closetItems = [
-  { id: "sunglasses", name: "선글라스", slot: "face", icon: "⌐", unlockItem: "선글라스", category: "run" },
-  { id: "running-suit", name: "러닝복", slot: "outfit", icon: "↯", unlockItem: "러닝복", category: "run" },
-  { id: "water-bottle", name: "물병", slot: "accessory", icon: "▯", unlockItem: "물병", category: "run" },
-  { id: "swim-goggles", name: "수경", slot: "face", icon: "∞", unlockItem: "수경", category: "water" },
-  { id: "swimsuit", name: "수영복", slot: "outfit", icon: "≈", unlockItem: "수영복", category: "water" },
-  { id: "swim-cap", name: "수모", slot: "hat", icon: "◡", unlockItem: "수모", category: "water" },
+  { id: "sunglasses", name: "선글라스", slot: "face", icon: "", unlockItem: "선글라스", category: "run" },
+  { id: "running-suit", name: "러닝복", slot: "outfit", icon: "", unlockItem: "러닝복", category: "run" },
+  { id: "water-bottle", name: "물병", slot: "accessory", icon: "", unlockItem: "물병", category: "run" },
+  { id: "swim-goggles", name: "수경", slot: "face", icon: "", unlockItem: "수경", category: "water" },
+  { id: "swimsuit", name: "수영복", slot: "outfit", icon: "", unlockItem: "수영복", category: "water" },
+  { id: "swim-cap", name: "수모", slot: "hat", icon: "", unlockItem: "수모", category: "water" },
   { id: "walking-shoes", name: "산책화", slot: "accessory", icon: "⌁", unlockItem: "산책화", category: "walk" },
   { id: "green-hoodie", name: "초록 후드", slot: "outfit", icon: "◠", unlockItem: "초록 후드", category: "walk" },
   { id: "meditation-robe", name: "명상 로브", slot: "outfit", icon: "✺", unlockItem: "명상 로브", category: "mindful" },
@@ -282,13 +282,14 @@ const state = {
     "러닝복": 1,
     "물병": 2,
     "수경": 1,
+    "수영복": 1,
     "수모": 1,
     "초록 후드": 1,
   },
   pets: {
     Leafling: { level: 2, xp: 35, petFile: "leafling.svg", unlocked: true, outfit: "green-hoodie", hat: null, face: null, accessory: "water-bottle" },
     Sparky: { level: 1, xp: 60, petFile: "sparky.svg", unlocked: true, outfit: "running-suit", hat: null, face: "sunglasses", accessory: "water-bottle" },
-    Splashy: { level: 1, xp: 20, petFile: "splashy.svg", unlocked: true, outfit: null, hat: "swim-cap", face: "swim-goggles", accessory: null },
+    Splashy: { level: 1, xp: 20, petFile: "splashy.svg", unlocked: true, outfit: "swimsuit", hat: "swim-cap", face: "swim-goggles", accessory: null },
     Mellow: { level: 1, xp: 10, petFile: "mellow.svg", unlocked: true, outfit: null, hat: null, face: null, accessory: null },
   },
   roomDecor: {
@@ -783,10 +784,10 @@ function renderRoom() {
   roomPetStyle.textContent = styleParts.length ? styleParts.join(" · ") : "기본 착장";
   growthStatus.textContent = `Lv. ${pet.level} · ${pet.xp} / 100 XP`;
   growthBar.style.width = `${xpPercent}%`;
-  petHat.textContent = selectedHat?.icon || "";
-  petFace.textContent = selectedFace?.icon || "";
-  petOutfit.textContent = selectedOutfit?.icon || "";
-  petAccessory.textContent = selectedAccessory?.icon || "";
+  petHat.textContent = selectedHat ? selectedHat.icon || " " : "";
+  petFace.textContent = selectedFace ? selectedFace.icon || " " : "";
+  petOutfit.textContent = selectedOutfit ? selectedOutfit.icon || " " : "";
+  petAccessory.textContent = selectedAccessory ? selectedAccessory.icon || " " : "";
   petHat.dataset.style = selectedHat?.id || "";
   petFace.dataset.style = selectedFace?.id || "";
   petOutfit.dataset.style = selectedOutfit?.id || "";
@@ -839,7 +840,7 @@ function renderRoom() {
       const available = isItemAvailable(item.unlockItem) || equipped;
       return `
         <button class="closet-card ${equipped ? "equipped" : ""}" data-equip-item="${item.id}" type="button" ${available ? "" : "disabled"}>
-          <span>${item.icon}</span>
+          <span class="closet-preview" data-style="${item.id}" aria-hidden="true">${item.icon}</span>
           <strong>${item.name}</strong>
           <em>${equipped ? "착용 중" : available ? `${item.unlockItem} 보유` : `${item.unlockItem} 필요`}</em>
         </button>
